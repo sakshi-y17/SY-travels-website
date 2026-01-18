@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SY Travels - Premium Bus Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. CORE VARIABLES --- */
+        :root {
+            --primary: #ff4757;
+            --primary-glow: rgba(255, 71, 87, 0.6);
+            --dark: #0f1c2e;
+            --darker: #080f1a;
+            --glass-bg: rgba(15, 28, 46, 0.95);
+            --glass-blur: blur(15px);
+        }
+
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* --- 2. HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            position: fixed; 
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo { 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem; 
+            font-weight: 900; 
+            color: white;
+        }
+        .logo span { color: var(--primary); }
+
+        nav ul { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; align-items: center; }
+        
+        nav a { 
+            text-decoration: none; 
+            color: #dcdde1; 
+            font-size: 0.9rem; 
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative; 
+        }
+        
+        nav a:hover { color: var(--primary); }
+
+        /* ACTIVE LINK STYLE */
+        nav a.active-link { color: var(--primary); }
+        
+        nav a.active-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-login-btn {
+            background: var(--primary);
+            padding: 8px 20px;
+            border-radius: 4px;
+            color: white !important;
+            font-weight: 600;
+        }
+        
+        .nav-login-btn.active-link { color: white !important; }
+        .nav-login-btn.active-link::after { 
+            bottom: -8px; 
+            background-color: white; 
+            box-shadow: 0 0 10px white;
+        }
+
+        /* --- 3. HERO SECTION --- */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: transparent; 
+            padding-top: 80px; 
+            z-index: 2;
+        }
+
+        .hero-bg-container {
+            position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100vh;
+            z-index: -1;
+            transition: filter 0.1s linear, opacity 0.1s linear;
+        }
+
+        .hero-bg {
+            width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(15,28,46,0.5), var(--dark)),
+                        url('bus-bg.png'); 
+            background-size: cover;
+            background-position: center;
+            animation: slowZoom 30s infinite alternate;
+        }
+        
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .hero-content { z-index: 1; position: relative; padding: 0 20px; max-width: 800px; }
+
+        #hero h1 { 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4.5rem; 
+            margin: 0; 
+            line-height: 1.1;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        #hero h1 span { color: var(--primary); }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #dcdde1;
+            margin: 30px auto;
+            line-height: 1.8;
+            max-width: 700px;
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            border-left: 4px solid var(--primary);
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .feature-item i { color: var(--primary); }
+
+        /* --- 4. MAIN WRAPPER --- */
+        .main-content-wrapper {
+            position: relative;
+            background: #0b131e;
+            overflow: hidden;
+            z-index: 5;
+            box-shadow: 0 -50px 100px #0b131e;
+            padding-bottom: 50px;
+        }
+
+        .continuous-map {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .map-path { fill: none; stroke: #2c3e50; stroke-width: 2; }
+        .map-trace {
+            fill: none; stroke: var(--primary); stroke-width: 3;
+            stroke-linecap: round; stroke-dasharray: 10, 300; 
+            stroke-dashoffset: 0;
+            animation: traceLongLine 10s linear infinite;
+        }
+        .trace-blue { stroke: #3498db; animation-delay: -3s; }
+
+        @keyframes traceLongLine { to { stroke-dashoffset: -2000; } }
+
+        /* --- 5. ROUTES SECTION --- */
+        #available-buses { 
+            padding: 100px 0; 
+            position: relative; 
+            z-index: 2; 
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            font-weight: 800;
+        }
+        .section-title span { color: var(--primary); }
+
+        .sliding-track {
+            display: flex;
+            gap: 40px;
+            width: max-content;
+            animation: slide-left 20s linear infinite; 
+            padding-left: 5%; 
+        }
+        
+        .sliding-track:hover { animation-play-state: paused; }
+
+        @keyframes slide-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+
+        .bus-card {
+            min-width: 320px;
+            padding: 30px;
+            border-radius: 24px;
+            background: rgba(20, 30, 48, 0.6); 
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 71, 87, 0.3);
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+
+        .bus-card:hover { 
+            transform: translateY(-10px) scale(1.02); 
+            border-color: var(--primary); 
+            background: rgba(20, 30, 48, 0.9);
+            box-shadow: 0 0 25px var(--primary-glow); 
+        }
+        
+        .bus-card h4 { margin: 0; font-size: 1.5rem; font-family: 'Montserrat', sans-serif; }
+        .route-details { color: #a5b1c2; font-size: 0.9rem; margin: 10px 0 20px 0; }
+        .timings { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 25px; }
+        .time-badge { background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.1); }
+        .price-section { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+        .price-tag { font-size: 1.5rem; font-weight: 700; color: white; }
+        .btn-book { text-decoration: none; padding: 10px 20px; background: white; color: var(--dark); border-radius: 5px; font-weight: 700; transition: 0.3s; }
+        .btn-book:hover { background: var(--primary); color: white; box-shadow: 0 0 15px var(--primary-glow); }
+
+        /* --- 6. AUTH SECTION --- */
+        #auth-section {
+            min-height: 80vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            background: rgba(15, 28, 46, 0.85); 
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            position: relative; /* IMPORTANT for the absolute mascot */
+        }
+        
+        .auth-container:hover { border-color: var(--primary); box-shadow: 0 0 30px rgba(255, 71, 87, 0.2); }
+
+        /* --- NEW MASCOT CONDUCTOR STYLES --- */
+        .conductor-mascot {
+            position: absolute;
+            top: -65px;
+            left: -50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 20;
+            animation: floatMascot 4s ease-in-out infinite;
+        }
+
+        .conductor-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            border: 4px solid #fff;
+        }
+
+        .speech-bubble {
+            background: white;
+            color: var(--dark);
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            white-space: nowrap;
+            position: relative;
+            transform: translateX(30px); /* Shift right slightly */
+        }
+        
+        /* Little triangle for speech bubble */
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 15px;
+            border-width: 8px 8px 0;
+            border-style: solid;
+            border-color: white transparent;
+        }
+
+        @keyframes floatMascot {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+        }
+
+        /* Hide mascot on very small screens to avoid breaking layout */
+        @media (max-width: 500px) {
+            .conductor-mascot { display: none; }
+        }
+        /* --- END MASCOT STYLES --- */
+
+        .auth-container h2 { margin: 0 0 10px 0; color: white; font-family: 'Montserrat', sans-serif; text-align: center; }
+        
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: #a5b1c2; }
+        
+        .input-group input, .input-group select {
+            width: 100%; padding: 12px;
+            background: rgba(0, 0, 0, 0.3); 
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; 
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+
+        .input-group select option { background-color: #0f1c2e; color: white; }
+        .input-group input:focus, .input-group select:focus { border-color: var(--primary); outline: none; background: rgba(0,0,0,0.5); }
+        .form-row { display: flex; gap: 15px; }
+        
+        .auth-btn {
+            width: 100%; padding: 15px; margin-top: 10px;
+            background: var(--primary); color: white; border: none;
+            border-radius: 8px; font-weight: 700; cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+        .auth-btn:hover { background: #ff6b81; transform: translateY(-2px); box-shadow: 0 0 15px var(--primary-glow); }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #dcdde1;
+        }
+        .auth-switch a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 5px;
+            transition: 0.3s;
+        }
+        .auth-switch a:hover {
+            color: white;
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        /* --- 7. FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: #080f1a;
+            color: #a5b1c2;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            position: relative; z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            #hero h1 { font-size: 3rem; }
+            header { padding: 1rem; flex-direction: column; gap: 10px; }
+            nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .sliding-track { animation: none; flex-direction: column; width: 100%; transform: none !important; padding: 0 20px; box-sizing: border-box; }
+            .bus-card { width: 100%; margin-bottom: 20px; }
+            .hero-features { flex-direction: column; gap: 10px; }
+            .continuous-map { height: 150%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">SY <span>Travels</span></div>
+        <nav>
+            <ul>
+                <li><a href="#hero" class="nav-link active-link">Home</a></li>
+                <li><a href="#available-buses" class="nav-link">Routes</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#auth-section" class="nav-link nav-login-btn">Login/Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero-bg-container" id="hero-bg-container">
+        <div class="hero-bg"></div>
+    </div>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1>SY <span>Travels</span></h1>
+            
+            <p class="hero-desc">
+                Welcome to SY Travels, your trusted partner for premium intercity commutes. 
+                We connect cities with comfort, ensuring punctuality and safety on every mile. 
+                Sit back in our spacious AC Seaters and enjoy a journey redefined by luxury.
+            </p>
+
+            <div class="hero-features">
+                <div class="feature-item"><i class="fas fa-couch"></i> Premium Comfort</div>
+                <div class="feature-item"><i class="fas fa-clock"></i> On-Time Departure</div>
+                <div class="feature-item"><i class="fas fa-shield-alt"></i> Safe & Secure</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="main-content-wrapper">
+        
+        <svg class="continuous-map" viewBox="0 0 1000 2000" preserveAspectRatio="none">
+            <path class="map-path" d="M -50,100 Q 300,50 600,200 T 900,500 T 500,1000 Q 200,1300 500,1600 T 1100,1700" />
+            <path class="map-trace" d="M -50,100 Q 300,50 600,200 T 900,500 T 500,1000 Q 200,1300 500,1600 T 1100,1700" />
+            <path class="map-path" d="M 1050,300 Q 700,400 400,600 T 100,1100 T 400,1500 T 900,1800" />
+            <path class="map-trace trace-blue" d="M 1050,300 Q 700,400 400,600 T 100,1100 T 400,1500 T 900,1800" />
+        </svg>
+
+        <section id="available-buses">
+            <h3 class="section-title">Daily <span>Departures</span></h3>
+            <div class="sliding-track">
+                <div class="bus-card">
+                    <h4>Sangola → Pune</h4>
+                    <div class="route-details">Via Pandharpur • AC Seater</div>
+                    <div class="timings">
+                        <span class="time-badge">06:00 AM</span>
+                        <span class="time-badge">03:00 PM</span>
+                        <span class="time-badge">10:00 PM</span>
+                    </div>
+                    <div class="price-section">
+                        <div class="price-tag">₹450<span>/seat</span></div>
+                        <a href="#auth-section" class="btn-book">Book Now</a>
+                    </div>
+                </div>
+                <div class="bus-card">
+                    <h4>Pune → Sangola</h4>
+                    <div class="route-details">Swargate Pickup • AC Seater</div>
+                    <div class="timings">
+                        <span class="time-badge">06:00 AM</span>
+                        <span class="time-badge">03:00 PM</span>
+                        <span class="time-badge">10:00 PM</span>
+                    </div>
+                    <div class="price-section">
+                        <div class="price-tag">₹450<span>/seat</span></div>
+                        <a href="#auth-section" class="btn-book">Book Now</a>
+                    </div>
+                </div>
+                <div class="bus-card">
+                    <h4>Solapur → Pune</h4>
+                    <div class="route-details">Express Highway • AC Seater</div>
+                    <div class="timings">
+                        <span class="time-badge">06:00 AM</span>
+                        <span class="time-badge">03:00 PM</span>
+                        <span class="time-badge">10:00 PM</span>
+                    </div>
+                    <div class="price-section">
+                        <div class="price-tag">₹550<span>/seat</span></div>
+                        <a href="#auth-section" class="btn-book">Book Now</a>
+                    </div>
+                </div>
+                <div class="bus-card">
+                    <h4>Pune → Solapur</h4>
+                    <div class="route-details">Multiple Drops • AC Seater</div>
+                    <div class="timings">
+                        <span class="time-badge">06:00 AM</span>
+                        <span class="time-badge">03:00 PM</span>
+                        <span class="time-badge">10:00 PM</span>
+                    </div>
+                    <div class="price-section">
+                        <div class="price-tag">₹550<span>/seat</span></div>
+                        <a href="#auth-section" class="btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="auth-section">
+            <div class="auth-container">
+                
+                <div class="conductor-mascot">
+                    <div class="speech-bubble">
+                        Join the family! <br> Get exclusive deals & updates.
+                    </div>
+                    <div class="conductor-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                </div>
+
+                <h2>Start Your Journey</h2>
+                <p style="color: #a5b1c2; margin-bottom: 25px; font-size: 0.9rem; text-align: center;">Join us for exclusive travel perks</p>
+                
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="name@example.com">
+                </div>
+                
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Age</label>
+                        <input type="number" min="18" placeholder="Age">
+                    </div>
+                    <div class="input-group">
+                        <label>Gender</label>
+                        <select>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="••••••••">
+                </div>
+
+                <button class="auth-btn">Create Account</button>
+                <p class="auth-switch">Already have an account? <a href="#">Login</a></p>
+            </div>
+        </section>
+
+    </div>
+
+    <footer id="contact">
+        <h3>SY Travels Office</h3>
+        <p>Opposite Petrol Pump, Sangola - 413307</p>
+        <h2>+91 98765 43210</h2>
+        <p style="opacity: 0.5; font-size: 0.8rem; margin-top: 30px;">&copy; 2026 SY Travels. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const heroBg = document.getElementById('hero-bg-container');
+            const scrollPosition = window.scrollY;
+            const maxScroll = 600; 
+            
+            let blurValue = Math.min((scrollPosition / maxScroll) * 15, 15);
+            let opacityValue = Math.max(1 - (scrollPosition / maxScroll), 0);
+
+            heroBg.style.filter = `blur(${blurValue}px)`;
+            heroBg.style.opacity = opacityValue;
+        });
+
+        const sections = document.querySelectorAll('section, footer');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        const observerOptions = {
+            root: null,
+            threshold: 0.4,
+            rootMargin: "-50px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const activeId = entry.target.getAttribute('id');
+                    navLinks.forEach(link => link.classList.remove('active-link'));
+                    const activeLink = document.querySelector(`.nav-link[href="#${activeId}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active-link');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+
+</body>
+</html>
